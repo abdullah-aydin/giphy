@@ -1,0 +1,41 @@
+#header {
+  margin: 0.5rem;
+  padding: 1rem 0;
+  position: sticky;
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    grid-gap: 10px;
+    margin-bottom: 1rem;
+
+    #search {
+      width: 100%;
+      height: 35px;
+      padding: 0 1rem;
+      border-radius: 1rem;
+      border: none;
+      outline: none;
+      background: #ebebee;
+    }
+  }
+  .grid-subcontainer {
+    display: grid;
+    row-gap: 1rem;
+    column-gap: 1rem;
+    width: 100%;
+
+    .grid-hr {
+      opacity: 0.4;
+    }
+    .grid-sub {
+      display: flex;
+      .grid-h4 {
+        margin-right: 1rem;
+      }
+      .grid-p {
+        opacity: 0.4;
+      }
+    }
+  }
+}
