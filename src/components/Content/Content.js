@@ -1,30 +1,48 @@
-import React from 'react'
-import "./Content.styles.scss"
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+//styles
+import "./Content.styles.scss";
 
 function Content() {
-    return (
-      <div id="content">
-          <div className="box-gif">1</div>
-          <div className="box-gif">2</div>
-          <div className="box-gif">3</div>
-          <div className="box-gif">4</div>
-          <div className="box-gif">5</div>
-          <div className="box-gif">6</div>
-          <div className="box-gif">7</div>
-          <div className="box-gif">8</div>
-          <div className="box-gif">9</div>
-          <div className="box-gif">10</div>
-          <div className="box-gif">11</div>
-          <div className="box-gif">12</div>
-          <div className="box-gif">13</div>
-          <div className="box-gif">14</div>
-          <div className="box-gif">15</div>
-          <div className="box-gif">16</div>
-          <div className="box-gif">17</div>
-          <div className="box-gif">18</div>
-          <div className="box-gif">19</div>
-          <div className="box-gif">20</div>
+  const [trendingGifs, setTrendingGifs] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://api.giphy.com/v1/gifs/trending?api_key=jr82dM0r3AjeUtsqVnCW5Rgojv8pO4DZ&limit=20&rating=g"
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        setTrendingGifs(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  return (
+    <div id="content">
+      {trendingGifs.map((data) => (
+        <div className="box-gif" key={data.id}>
+          <img
+            src={data.images.preview_gif.url}
+            alt={data.title}
+            className="gif"
+          />
+          <div className="gif-info">
+            <div className="info">
+              <p className="data-title">{data.title}</p>
+              {data.username !== "" && (
+                <a href={data.user.profile_url} className="data-user">
+                  <img src={data.user.avatar_url} alt="" className="avatar" />
+                  <p className="username">{data.username}</p>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
-export default Content
+export default Content;
