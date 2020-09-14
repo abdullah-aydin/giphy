@@ -1,7 +1,14 @@
+$blueColor: #1583ff;
+$HoverBlueColor: #1076eb;
+
 #header {
   margin: 0.5rem;
   padding: 1rem 0;
   position: sticky;
+  top: 0;
+  z-index: 9;
+  background-color: #fff;
+
   .grid-container {
     display: grid;
     grid-template-columns: auto auto;
@@ -17,6 +24,9 @@
       border: none;
       outline: none;
       background: #ebebee;
+      &:focus {
+        background: #e1e1e4;
+      }
     }
   }
   .grid-subcontainer {
@@ -32,6 +42,16 @@
       display: flex;
       .grid-h4 {
         margin-right: 1rem;
+        .grid-span{
+           margin-left: 1rem;
+          color: $blueColor;
+          cursor: pointer;
+        
+        &:hover{
+          color: $HoverBlueColor;
+          text-decoration: underline;
+        }
+        }
       }
       .grid-p {
         opacity: 0.4;

@@ -1,17 +1,23 @@
+$gifCard: 225px;
+$blueColor: #1583ff;
+$HoverBlueColor: #1076eb;
+
 #content {
   display: grid;
-  grid-template-columns: 225px 225px 225px 225px;
-  grid-template-rows: 225px 225px 225px 225px;
+  grid-template-columns: $gifCard $gifCard $gifCard $gifCard;
+  grid-template-rows: $gifCard $gifCard $gifCard $gifCard;
   gap: 20px;
   justify-content: center;
 
   .box-gif {
     position: relative;
-    min-height: 225px;
+    min-height: $gifCard;
+    max-height: $gifCard;
     width: 100%;
     height: 100%;
     border-radius: 5px;
     cursor: pointer;
+
     &:hover {
       .gif-info {
         display: flex;
@@ -68,21 +74,50 @@
   }
 }
 
+.button-area {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  padding: 2rem 0.5rem;
+
+  .button {
+    background-color: $blueColor;
+    color: #fff;
+    outline: none;
+    border-radius: 50px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    &:hover {
+      background-color: $HoverBlueColor;
+    }
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 992px) {
   #content {
-    grid-template-columns: 225px 225px 225px;
-    grid-template-rows: 225px 225px 225px;
+    grid-template-columns: $gifCard $gifCard $gifCard;
+    grid-template-rows: $gifCard $gifCard $gifCard;
   }
 }
 @media (max-width: 768px) {
   #content {
-    grid-template-columns: 225px 225px;
-    grid-template-rows: 225px 225px;
+    grid-template-columns: $gifCard $gifCard;
+    grid-template-rows: $gifCard $gifCard;
   }
 }
 @media (max-width: 576px) {
   #content {
-    grid-template-columns: 225px;
-    grid-template-rows: 225px;
+    grid-template-columns: $gifCard;
+    grid-template-rows: $gifCard;
   }
 }
