@@ -1,0 +1,63 @@
+$blueColor: #1583ff;
+$HoverBlueColor: #1076eb;
+
+.overlay {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: auto;
+
+  .modal {
+    z-index: 99;
+    max-width: 720px;
+    max-height: 100%;
+    margin: 0 auto;
+
+    .modal-body {
+      padding: 2rem;
+      margin: 1rem;
+      border-radius: 1rem;
+      background-color: #f5f5f5;
+
+      .modal-close {
+        cursor: pointer;
+      }
+      .data-title {
+        font-size: 2rem;
+        margin: 1rem 0;
+      }
+      .data-image {
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        border-radius: 5px;
+      }
+      .data-user {
+        display: flex;
+        align-items: center;
+        margin: 1rem 0;
+        color: $blueColor;
+        text-decoration: none;
+
+        .avatar {
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          margin-right: 1rem;
+        }
+        .username:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

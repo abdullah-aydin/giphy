@@ -17,6 +17,7 @@ $HoverBlueColor: #1076eb;
     height: 100%;
     border-radius: 5px;
     cursor: pointer;
+    animation-name: mymove;
 
     &:hover {
       .gif-info {
@@ -103,6 +104,8 @@ $HoverBlueColor: #1076eb;
   justify-content: center;
 }
 
+
+
 @media (max-width: 992px) {
   #content {
     grid-template-columns: $gifCard $gifCard $gifCard;
@@ -121,3 +124,16 @@ $HoverBlueColor: #1076eb;
     grid-template-rows: $gifCard;
   }
 }
+
+@keyframes mymove {
+  0% {
+    transform: translateZ(600px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateZ(0);
+    opacity: 1;
+  }
+}
+
+

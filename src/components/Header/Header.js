@@ -1,6 +1,6 @@
 import React from "react";
-import "./Header.styles.scss";
-import allActions from "../../redux/actions";
+import "./Header.scss";
+import { searchGifsAction, trendGifsAction } from "../../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 function Header() {
@@ -9,23 +9,26 @@ function Header() {
     value: state.gifsReducer.value,
   }));
   const dispatch = useDispatch();
-
-  // if (!value){
-  //    document.getElementById("output").value = "";
-  // }
+  //scroll top when there is new value
+  function scrollTop() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
 
   function handleChange(e) {
     let values = e.target.value;
+    scrollTop();
 
     if (values) {
-      allActions.searchGifsActions.searchGifs(dispatch, values);
+      searchGifsAction.searchGifs(dispatch, values);
     } else {
-      allActions.trendGifsActions.trendGifs(dispatch);
+      trendGifsAction.trendGifs(dispatch);
     }
   }
 
+  //onClick #Trending
   function onClick(dispatch) {
-    allActions.trendGifsActions.trendGifs(dispatch);
+    trendGifsAction.trendGifs(dispatch);
     document.getElementById("search").value = "";
   }
 

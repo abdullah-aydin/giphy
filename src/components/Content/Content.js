@@ -1,29 +1,101 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import allActions from "../../redux/actions";
+import {
+  trendGifsAction,
+  loadMoreAction,
+  firstScrollAction,
+} from "../../redux/actions";
+//components
+import Modal from "../Modal";
+import Spinner from "../Spinner";
 //styles
-import "./Content.styles.scss";
+import "./Content.scss";
 
 function Content() {
-  const { gifs, value } = useSelector((state) => ({
+  const { gifs, value, scroll, loading, loadMore } = useSelector((state) => ({
     gifs: state.gifsReducer.items,
     value: state.gifsReducer.value,
+    scroll: state.gifsReducer.scroll,
+    loading: state.gifsReducer.loading,
+    loadMore: state.gifsReducer.loadMore,
   }));
 
-  const offset = gifs.length;
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  // data pass to modal component when onClick box-gif
+  const [data, setData] = useState("");
+  //item length
+  const offset = gifs.length;
 
+  //init fetch trending gifs
   useEffect(() => {
-    allActions.trendGifsActions.trendGifs(dispatch);
-  }, []);
+    trendGifsAction.trendGifs(dispatch);
+  }, [dispatch]);
 
+  //adding new item at the bottom the page
+  if (scroll) {
+    window.onscroll = function (ev) {
+      if (
+        window.innerHeight + Math.ceil(window.pageYOffset + 1) >=
+        document.body.offsetHeight
+      ) {
+        loadMoreGifs();
+        firstScrollAction.firstScroll(dispatch);
+        window.onscroll = null;
+      }
+    };
+  }
 
+ 
+  //onClick load more button
+  function loadMoreGifs() {
+    loadMoreAction.moreGifs(dispatch, offset, value);
+  }
+
+  function openModal(data) {
+    setData(data);
+    setShow(true);
+  }
+
+  //box-gif default background color
+  function chooseColor() {
+    const colorPalette = [
+      "#ffb25d",
+      "#21f3c5",
+      "#217bf3",
+      "#ecf321",
+      "#f32192",
+      "#a621f3",
+    ];
+
+    let index = Math.floor(Math.random() * 6);
+    let color = colorPalette[index];
+    return color;
+  }
+
+  //animation duration second
+  function animation(index) {
+    if (index < 20) {
+      return 0.2 * index + "s";
+    } else {
+      return "0s";
+    }
+  }
 
   return (
     <React.Fragment>
+      {loading && <Spinner />}
       <div id="content">
         {gifs.map((data, index) => (
-          <div className="box-gif" key={index}>
+          <div
+            className="box-gif"
+            key={index}
+            onClick={() => openModal(data)}
+            style={{
+              backgroundColor: chooseColor(),
+              animationDuration: animation(index),
+            }}
+          >
             <img
               src={data.images.preview_gif.url}
               alt={data.title}
@@ -43,16 +115,17 @@ function Content() {
           </div>
         ))}
       </div>
+      {loadMore && (
+        <div style={{ marginTop: "30px", marginBottom: "30px" }}>
+          <Spinner />
+        </div>
+      )}
       <div className="button-area">
-        <button
-          className="button"
-          onClick={() =>
-            allActions.loadMoreActions.moreGifs(dispatch, offset, value)
-          }
-        >
+        <button className="button" onClick={() => loadMoreGifs()}>
           Load more...
         </button>
       </div>
+      <Modal show={show} setShow={setShow} data={data} />
     </React.Fragment>
   );
 }

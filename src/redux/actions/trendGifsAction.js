@@ -6,6 +6,11 @@ import {
   FETCH_TREND_GIF_FAILURE,
 } from "../types";
 
+const trendGifs = async (dispatch) => {
+  dispatch({ type: FETCH_TREND_GIF_BEGIN });
+  await request(dispatch, FETCH_TREND_GIF_SUCCESS);
+};
+
 function request(dispatch) {
   axios
     .get(trendURL())
@@ -27,13 +32,6 @@ function request(dispatch) {
     return `${SITE_URL}/trending?q=null&offset=0&limit=${LIMIT}&api_key=${API_KEY}`;
   }
 }
-
-const trendGifs = async (dispatch) => {
-  dispatch({ type: FETCH_TREND_GIF_BEGIN });
-  await request(dispatch, FETCH_TREND_GIF_SUCCESS);
-};
-
-
 
 export default {
   trendGifs,

@@ -1,11 +1,11 @@
-import trendGifsActions from "./trendGifsActions";
-import searchGifsActions from "./searchGifsActions";
-import loadMoreActions from "./loadMoreActions";
+import trendGifsAction from "./trendGifsAction";
+import searchGifsAction from "./searchGifsAction";
+import loadMoreAction from "./loadMoreAction";
+import firstScrollAction from "./firstScrollAction";
 
-const allActions = {
-  trendGifsActions,
-  searchGifsActions,
-  loadMoreActions,
+export {
+  trendGifsAction,
+  searchGifsAction,
+  loadMoreAction,
+  firstScrollAction
 };
-
-export default allActions
