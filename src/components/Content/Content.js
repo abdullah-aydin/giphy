@@ -125,7 +125,7 @@ function Content() {
           Load more...
         </button>
       </div>
-      <Modal show={show} setShow={setShow} data={data} />
+      {show && <Modal show={show} setShow={setShow} data={data} />}
     </React.Fragment>
   );
 }
